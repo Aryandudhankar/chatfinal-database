@@ -1,28 +1,16 @@
 package com.Aryan.chatfinal;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpResponse;
 import java.time.LocalTime;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-
-import java.net.http.HttpRequest;
-
-
-
-
 @Controller
-  public class ChatController {
+public class ChatController {
+
   // this method handels the normal sending of messages and the @bot queries
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
@@ -67,68 +55,19 @@ import java.net.http.HttpRequest;
 
 // This method handels the bot query logic 
 
-private String handleBotQuery(String query) {
-    return callOpenAI(query);
-}
+    private String handleBotQuery(String query) {
+    query = query.toLowerCase();
 
-//This method is used to call the openai api to get response from AI
-
-
-@Value("${openai.api.key}")
-private String openAiApiKey;
-private String callOpenAI(String query) {
-    try {
-        HttpClient client = HttpClient.newHttpClient();
-
-        String json = """
-        {
-          "model": "gpt-3.5-turbo",
-          "messages": [
-            {"role": "system", "content": "You are a helpful assistant in a chat."},
-            {"role": "user", "content": "%s"}
-          ]
-        }
-        """.formatted(query);
-
-        HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create("https://api.openai.com/v1/chat/completions"))
-            .header("Content-Type", "application/json")
-            .header("Authorization", "Bearer " + openAiApiKey)
-            .POST(HttpRequest.BodyPublishers.ofString(json))
-            .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println("===== RAW OPENAI RESPONSE =====");
-        System.out.println(response.body());
-
-
-   ObjectMapper mapper = new ObjectMapper();
-JsonNode root = mapper.readTree(response.body());
-
-if (!root.has("choices")) {
-    return "⚠️ Bot response missing 'choices'.";
-}
-
-JsonNode choices = root.get("choices");
-if (!choices.isArray() || choices.size() == 0) {
-    return "⚠️ Bot response has no choices.";
-}
-
-JsonNode messageNode = choices.get(0).path("message").path("content");
-
-if (messageNode.isMissingNode()) {
-    return "⚠️ Bot message content not found.";
-}
-System.out.println("KEY: " + openAiApiKey);
-
-return messageNode.asText().trim();
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        return "Sorry, I couldn't get a response from the AI.";
+    if (query.contains("joke")) {
+        return "Why did the programmer quit his job? Because he didn't get arrays. 😂";
+    } else if (query.contains("time")) {
+        return "Current server time is: " + LocalTime.now().withNano(0);
+    } else if (query.contains("help")) {
+        return "Try '@bot tell me a joke', '@bot what time is it', or '@bot help'.";
+    } else if (query.contains("hello")) {
+        return "Hello! How are you doing today?";
+    } else {
+        return "I'm just a simple bot 🤖. Try typing '@bot help' for options!";
     }
 }
-
-
 }
-

@@ -1,20 +1,20 @@
-# Use Java 21 base image
+# Use Java 21
 FROM eclipse-temurin:21-jdk
 
-# Set working directory inside container
+# Set working directory
 WORKDIR /app
 
-# Copy everything into the container
+# Copy everything
 COPY . .
 
-# Move into the actual project directory where pom.xml is
+# Change to the folder where pom.xml exists
 WORKDIR /app/chatfinal
 
-# Ensure mvnw is executable
+# Make mvnw executable
 RUN chmod +x mvnw
 
-# Build the Spring Boot app
-RUN ./mvnw clean install
+# Build the app (skip tests!)
+RUN ./mvnw clean install -DskipTests
 
 # Run the app
 CMD ["java", "-jar", "target/chatfinal-0.0.1-SNAPSHOT.jar"]

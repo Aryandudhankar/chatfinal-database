@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: springboot-chat-app
+    env: java
+    buildCommand: ./mvnw clean install
+    startCommand: java -jar target/*.jar
+    envVars:
+      - key: JAVA_VERSION
+        value: 21
+
+

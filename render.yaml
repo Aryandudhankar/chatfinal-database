@@ -2,7 +2,7 @@ services:
   - type: web
     name: chatfinal
     env: java
-    buildCommand:  bash mvnw clean instal
+    buildCommand: bash mvnw clean install
     startCommand: java -jar target/*.jar
     envVars:
       - key: OPENAI_API_KEY

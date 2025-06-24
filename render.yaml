@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: chatfinal
+    runtime: docker
+    buildCommand: ./mvnw clean install
+    startCommand: java -jar target/*.jar
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false

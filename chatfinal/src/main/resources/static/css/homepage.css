@@ -197,4 +197,49 @@ h1 {
         flex-direction: column;
     }
   }
+  @media (max-width: 768px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .topbar-left,
+  .topbar-center,
+  .topbar-right {
+    width: 100%;
+    justify-content: space-between;
+    padding: 8px 0;
+  }
+
+  .topbar-center {
+    order: 3;
+    justify-content: center;
+  }
+
+  .topbar-right {
+    order: 2;
+    justify-content: flex-end;
+  }
+
+  .topbar-left {
+    order: 1;
+  }
+
+  .search-bar {
+    width: 90%;
+  }
+
+  .nav-item,
+  .signup {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+}
+input,
+button {
+  font-size: 16px; /* Avoids zoom on input in mobile */
+  touch-action: manipulation;
+}
+
+
 }

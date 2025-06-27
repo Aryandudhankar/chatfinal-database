@@ -112,6 +112,77 @@ h1 {
   background-color: #aed581;
   color: #0d4d12;
 }
+/* Topbar */  
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #6fb123; /* Udemy purple */
+  padding: 10px 20px;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  font-size: 1.4em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.explore {
+  cursor: pointer;
+}
+
+.topbar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.search-bar {
+  width: 60%;
+  max-width: 600px;
+  padding: 8px 14px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  font-size: 1em;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-item {
+  background: none;
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.signup {
+  background-color: white;
+  color: #6fb123;
+  font-weight: bold;
+}
+.menu-icon {
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+
+
+
 
 @media screen and (max-width: 768px) {
   .main {
@@ -120,5 +191,10 @@ h1 {
 
   h1 {
     font-size: 2rem;
+  }
+  @media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
   }
 }

@@ -57,12 +57,18 @@ button:hover {
     background-color: #388e3c;
 }
 
-.error {
-    margin-top: 15px;
-    color: red;
+.error-message {
+  color: red;
+  background-color: #ffe6e6;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
 
-.logout {
-    margin-top: 15px;
-    color: green;
+.logout-message {
+  color: green;
+  background-color: #e6ffe6;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }

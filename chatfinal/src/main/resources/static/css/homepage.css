@@ -38,6 +38,24 @@ body {
   color: #ecf0f1;
   cursor: pointer;
 }
+.logout-btn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logout-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 
 
 .sidebar a:hover {

@@ -12,7 +12,6 @@ public class RegistrationController {
 
     @Autowired
     private UserService userService;
-
     // Show the registration form
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
@@ -46,4 +45,6 @@ public class RegistrationController {
         }
         return "login"; // login.html in templates
     }
+
+  
 }

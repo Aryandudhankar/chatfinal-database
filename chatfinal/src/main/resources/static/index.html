@@ -37,10 +37,23 @@
   <div class="topbar-center">
     <input type="text" class="search-bar" placeholder="Search...">
   </div>
-  <div class="topbar-right">
-    <div class="nav-item">About us </div>
-    <div class="nav-item signup">Sign up</div>
+<!-- Topbar Right -->
+<div class="topbar-right">
+<div class="profile-dropdown">
+  <img src="/images/avatarlogo.png"
+       alt="Avatar"
+       class="avatar-img"
+       onclick="toggleDropdown()" />
+  <div class="dropdown-content" id="profileDropdown">
+    <a href="#">Profile</a>
+    <a href="#">Settings</a>
+    <a href="/logout">Logout</a>
   </div>
+</div>
+
+</div>
+</div>
+
 </div>
 
   <!-- Main Content -->
@@ -53,6 +66,7 @@
   </div>
 
   <script src="js/sidebar.js"></script>
+ <script src="js/logodrop.js"></script>
 </body>
 </html>
 

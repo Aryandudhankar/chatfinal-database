@@ -1,8 +1,8 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #ffffff, #ffffff);
-  color: #e8f5e9;
+  background: #ffffff;
+  color: #333;
 }
 
 /* Sidebar */
@@ -22,12 +22,19 @@ body {
 
 .sidebar a {
   padding: 15px 30px;
-  text-decoration: none;
   font-size: 18px;
   color: #c8e6c9;
   display: block;
+  text-decoration: none;
   transition: 0.3s;
 }
+
+.sidebar a:hover,
+.logout-btn:hover {
+  background-color: #2e7d32;
+  color: white;
+}
+
 .close-btn {
   position: absolute;
   top: 15px;
@@ -35,32 +42,22 @@ body {
   font-size: 24px;
   background: none;
   border: none;
-  color: #ecf0f1;
+  color: white;
   cursor: pointer;
 }
+
 .logout-btn {
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: 16px;
-    padding: 10px 20px;
-    text-align: left;
-    width: 100%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.logout-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-
-
-.sidebar a:hover {
-  background-color: #2e7d32;
-  color: #ffffff;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .open-btn {
@@ -68,13 +65,12 @@ body {
   cursor: pointer;
   background: none;
   border: none;
-  color: #145A32; /* darker green */
+  color: #145A32;
   position: absolute;
   top: 20px;
   left: 20px;
   z-index: 1100;
 }
-
 
 /* Main Content */
 .main {
@@ -104,23 +100,23 @@ h1 {
   border: none;
   border-radius: 25px;
   cursor: pointer;
-  transition: 0.3s;
   font-weight: bold;
+  transition: 0.3s;
 }
 
 .start-chat-btn:hover {
   background-color: #aed581;
   color: #0d4d12;
 }
-/* Topbar */  
+
+/* Topbar */
 .topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #6fb123; /* Udemy purple */
+  background-color: #6fb123;
   padding: 10px 20px;
   color: white;
-  font-family: 'Segoe UI', sans-serif;
 }
 
 .topbar-left {
@@ -159,45 +155,55 @@ h1 {
   display: flex;
   align-items: center;
   gap: 15px;
+  position: relative;
 }
 
-.nav-item {
-  background: none;
-  border: 1px solid white;
-  border-radius: 4px;
-  padding: 6px 12px;
+/* Avatar + Dropdown */
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.avatar-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   cursor: pointer;
+  border: 2px solid white;
+  object-fit: cover;
 }
 
-.signup {
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
   background-color: white;
-  color: #6fb123;
-  font-weight: bold;
-}
-.menu-icon {
-  font-size: 24px;
-  cursor: pointer;
-  margin-right: 15px;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  min-width: 140px;
+  z-index: 999;
 }
 
+.dropdown-content a {
+  display: block;
+  padding: 10px 16px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+.dropdown-content a:hover {
+  background-color: #f0f0f0;
+}
+
+.profile-dropdown.show .dropdown-content {
+  display: block;
+}
 
 
-
-
-@media screen and (max-width: 768px) {
-  .main {
-    padding: 80px 20px;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
-  @media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
-  }
-  @media (max-width: 768px) {
+/* Responsive */
+@media (max-width: 768px) {
   .topbar {
     flex-direction: column;
     align-items: flex-start;
@@ -211,22 +217,12 @@ h1 {
     padding: 8px 0;
   }
 
-  .topbar-center {
-    order: 3;
-    justify-content: center;
-  }
-
-  .topbar-right {
-    order: 2;
-    justify-content: flex-end;
-  }
-
-  .topbar-left {
-    order: 1;
-  }
-
   .search-bar {
     width: 90%;
+  }
+
+  .main {
+    padding: 80px 20px;
   }
 
   .nav-item,
@@ -235,11 +231,9 @@ h1 {
     padding: 6px 10px;
   }
 }
+
 input,
 button {
-  font-size: 16px; /* Avoids zoom on input in mobile */
+  font-size: 16px;
   touch-action: manipulation;
-}
-
-
 }

@@ -1,4 +1,4 @@
-package com.Aryan.chatfinal.registerationcontroller;
+package com.Aryan.chatfinal.controller;
 
 import com.Aryan.chatfinal.model.User;
 import com.Aryan.chatfinal.service.UserService;

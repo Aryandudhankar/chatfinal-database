@@ -116,6 +116,7 @@ h1 {
   align-items: center;
   background-color: #6fb123;
   padding: 10px 20px;
+  height: 60px;
   color: white;
 }
 
@@ -141,15 +142,49 @@ h1 {
   justify-content: center;
 }
 
-.search-bar {
-  width: 60%;
-  max-width: 600px;
-  padding: 8px 14px;
-  border-radius: 30px;
-  border: none;
-  outline: none;
-  font-size: 1em;
+.search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px; /* Increase width here */
+  margin: auto;
 }
+
+.search-bar {
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.search-result {
+  color: #333; /* Set solid readable text color */
+  background-color: white;
+  padding: 10px 16px;
+  font-size: 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f1f1;
+  transition: background 0.2s ease;
+  position: absolute;
+  top: 100%;                 /* Directly below the input */
+  left: 0;
+  width: 100%;
+  max-height: 200px;         /* Scrollable if too long */
+  overflow-y: auto;
+}
+
+.search-result:hover {
+  background-color: #f0f0f0;
+  color: #000; /* Ensure hover also has visible text */
+}
+
+.search-results {
+  background-color: white;
+  color: #333;
+}
+
 
 .topbar-right {
   display: flex;

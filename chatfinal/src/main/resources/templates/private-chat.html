@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Private Chat</title>
+  <link rel="stylesheet" href="/css/private-chat.css" />
+</head>
+<body>
+
+  <div class="main-wrapper">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Chats</h2>
+      <div id="chat-history-list">
+        <!-- Chat user items are dynamically added here -->
+      </div>
+      <div class="home-link">
+        <a href="/index.html">🏠 Go to Homepage</a>
+      </div>
+    </div>
+
+    <!-- Chat area -->
+    <div class="chat-container">
+      <div class="chat-card">
+        <div class="chat-header">
+          <span id="chat-user" th:text="${otherUser}">User</span>
+        </div>
+
+        <div id="chat-box" class="chat-box"></div>
+
+        <div class="chat-input">
+          <input type="text" id="msg-input" placeholder="Type your message..." />
+          <button onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+
+      <!-- Hidden fields -->
+      <input type="hidden" id="currentUser" th:value="${currentUser}" />
+      <input type="hidden" id="otherUser" th:value="${otherUser}" />
+    </div>
+  </div>
+
+  <script src="/js/private-chat.js"></script>
+</body>
+</html>

@@ -25,18 +25,32 @@
     <a href="#">❓ Help</a>
   </div>
 
-  <!-- Toggle Button -->
+
 
 <!-- Top Navigation Bar -->
 <div class="topbar">
+  <!-- Topbar Left-->
   <div class="topbar-left">
     <div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
     <div class="logo">🌱 ChatApp</div>
     <div class="explore">Explore</div>
   </div>
-  <div class="topbar-center">
-    <input type="text" class="search-bar" placeholder="Search...">
+  <!-- Topbar Center-->
+<div class="topbar-center">
+  <div class="search-wrapper">
+    <input
+      type="text"
+      id="userSearchInput"
+      class="search-bar"
+      placeholder="Search for users..."
+      oninput="searchUsers()" />
+    <div id="searchResults" class="search-results"></div>
   </div>
+</div>
+
+
+<div id="searchResults"></div> <!-- Display search results -->
+
 <!-- Topbar Right -->
 <div class="topbar-right">
 <div class="profile-dropdown">
@@ -45,7 +59,7 @@
        class="avatar-img"
        onclick="toggleDropdown()" />
   <div class="dropdown-content" id="profileDropdown">
-    <a href="#">Profile</a>
+    <a href="/profile">Profile</a>
     <a href="#">Settings</a>
     <a href="/logout">Logout</a>
   </div>
@@ -67,6 +81,7 @@
 
   <script src="js/sidebar.js"></script>
  <script src="js/logodrop.js"></script>
+ <script src="js/search.js"></script>
 </body>
 </html>
 

@@ -1,83 +1,107 @@
 document.addEventListener("DOMContentLoaded", function () {
   const currentUser = document.getElementById("currentUser")?.value;
   const otherUser = document.getElementById("otherUser")?.value;
-
   const chatBox = document.getElementById("chat-box");
   const msgInput = document.getElementById("msg-input");
 
+  let stompClient = null;
+
+  function connectWebSocket() {
+    const socket = new SockJS("/ws");
+    stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, function () {
+      console.log("WebSocket connected");
+
+      // Subscribe to /user/queue/messages (Spring routes it based on Principal)
+      stompClient.subscribe("/user/queue/messages", function (message) {
+        const msg = JSON.parse(message.body);
+
+        if (
+          (msg.senderUsername === currentUser && msg.receiverUsername === otherUser) ||
+          (msg.senderUsername === otherUser && msg.receiverUsername === currentUser)
+        ) {
+          displayMessage(msg);
+        }
+      });
+    });
+  }
+
+  function displayMessage(msg) {
+    const div = document.createElement("div");
+    div.classList.add("message", msg.senderUsername === currentUser ? "sent" : "received");
+    div.textContent = `${msg.senderUsername}: ${msg.message}`;
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
   async function loadMessages() {
-    if (!currentUser || !otherUser) {
-      console.error("Missing user info.");
-      return;
-    }
+    if (!currentUser || !otherUser) return;
 
     try {
       const res = await fetch(`/api/private/messages?sender=${currentUser}&receiver=${otherUser}`);
       const messages = await res.json();
       chatBox.innerHTML = "";
-
-      messages.forEach(m => {
-        const div = document.createElement("div");
-        div.classList.add("message");
-        div.classList.add(m.senderUsername === currentUser ? "sent" : "received");
-        div.textContent = `${m.senderUsername}: ${m.message}`;
-        chatBox.appendChild(div);
-      });
-
-      chatBox.scrollTop = chatBox.scrollHeight; // auto scroll to bottom
+      messages.forEach(displayMessage);
     } catch (error) {
       console.error("Failed to load messages", error);
     }
   }
 
-  window.sendMessage = async function () {
+  window.sendMessage = function () {
     const message = msgInput.value.trim();
-    if (!message || !currentUser || !otherUser) {
-      alert("Missing required elements or user info.");
-      return;
-    }
+    if (!message || !stompClient || !currentUser || !otherUser) return;
 
-    try {
-      await fetch('/api/private/send', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          senderUsername: currentUser,
-          receiverUsername: otherUser,
-          message: message
-        })
-      });
-      msgInput.value = "";
-      await loadMessages();
-    } catch (error) {
-      console.error("Failed to send message", error);
-    }
+    const msgObj = {
+      senderUsername: currentUser,
+      receiverUsername: otherUser,
+      message: message
+    };
+
+    stompClient.send("/app/private-message", {}, JSON.stringify(msgObj));
+    msgInput.value = "";
   };
 
-  // Load previous messages and chat list
-  loadMessages();
+  async function loadChatHistory() {
+    const list = document.getElementById("chat-history-list");
+    if (!currentUser || !list) return;
 
-async function loadChatHistory() {
-  const currentUser = document.getElementById("currentUser")?.value;
-  const list = document.getElementById("chat-history-list");
-  if (!currentUser || !list) return;
+    try {
+      const response = await fetch(`/api/chat/history`);
+      const users = await response.json();
 
-  try {
-    const response = await fetch(`/api/chat/history`);
-    const users = await response.json();
-
-    list.innerHTML = "";
-    users.forEach(user => {
-      const item = document.createElement("div");
-      item.className = "chat-user-item";
-      item.textContent = user;
-      item.onclick = () => window.location.href = `/private-chat/${user}`;
-      list.appendChild(item);
-    });
-  } catch (err) {
-    console.error("Failed to load chat history", err);
+      list.innerHTML = "";
+      users.forEach(user => {
+        const item = document.createElement("div");
+        item.className = "chat-user-item";
+        item.textContent = user;
+        item.onclick = () => window.location.href = `/private-chat/${user}`;
+        list.appendChild(item);
+      });
+    } catch (err) {
+      console.error("Failed to load chat history", err);
+    }
   }
-}
 
+  // Send message on Enter key
+  msgInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+
+  // Hide dropdown if clicked outside
+  document.addEventListener("click", function (e) {
+    const input = document.getElementById("userSearchInput");
+    const dropdown = document.getElementById("searchResults");
+    if (input && dropdown && !input.contains(e.target) && !dropdown.contains(e.target)) {
+      dropdown.style.display = "none";
+    }
+  });
+
+  // Initialize
+  connectWebSocket();
+  loadMessages();
   loadChatHistory();
 });

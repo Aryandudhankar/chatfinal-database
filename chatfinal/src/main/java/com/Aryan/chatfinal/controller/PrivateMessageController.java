@@ -63,4 +63,14 @@ public class PrivateMessageController {
                     principal.getName(), "/queue/messages", saved);
         }
     }
+    @MessageMapping("/typing")
+public void handleTyping(PrivateMessage typingInfo, Principal principal) {
+    String typingMessage = principal.getName() + " is typing...";
+    messagingTemplate.convertAndSendToUser(
+        typingInfo.getReceiverUsername(),
+        "/queue/typing",
+        typingMessage
+    );
+}
+
 }

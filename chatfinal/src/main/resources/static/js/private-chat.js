@@ -91,15 +91,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Hide dropdown if clicked outside
-  document.addEventListener("click", function (e) {
-    const input = document.getElementById("userSearchInput");
-    const dropdown = document.getElementById("searchResults");
-    if (input && dropdown && !input.contains(e.target) && !dropdown.contains(e.target)) {
-      dropdown.style.display = "none";
-    }
-  });
-
   // Initialize
   connectWebSocket();
   loadMessages();

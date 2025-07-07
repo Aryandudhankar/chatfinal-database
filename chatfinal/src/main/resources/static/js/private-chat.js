@@ -25,17 +25,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
           stompClient.subscribe(`/user/${currentUser}/queue/typing`, function (typingMsg) {
-          const typingBox = document.getElementById("typing-indicator");
-          typingBox.textContent = typingMsg.body;
-          typingBox.style.display = "block";
+          console.log("Received typing indicator:", typingMsg.body); // <== DEBUG LINE
 
-           clearTimeout(typingBox._timeout);
-            typingBox._timeout = setTimeout(() => {
-             typingBox.style.display = "none";
-             }, 2000);
-      });
+            const typingBox = document.getElementById("typing-indicator");
+             if (typingBox) { 
+              typingBox.textContent = typingMsg.body;
+               typingBox.style.display = "block";
+
+              clearTimeout(typingBox._timeout);
+              typingBox._timeout = setTimeout(() => {
+              typingBox.style.display = "none";
+              }, 2000);
+    }
     });
-  }
+
+    });
+ }
 
   function displayMessage(msg) {
     const div = document.createElement("div");

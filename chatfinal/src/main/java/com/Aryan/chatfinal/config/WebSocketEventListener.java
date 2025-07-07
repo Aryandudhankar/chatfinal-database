@@ -9,7 +9,7 @@ import org.springframework.web.socket.messaging.SessionConnectEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 @Component
-public class OnlineWebSocketEventListener {
+public class WebSocketEventListener {
 
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectEvent event) {

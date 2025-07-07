@@ -4,6 +4,7 @@ import com.Aryan.chatfinal.model.PrivateMessage;
 import com.Aryan.chatfinal.repository.PrivateMessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,14 +64,13 @@ public class PrivateMessageController {
                     principal.getName(), "/queue/messages", saved);
         }
     }
-    @MessageMapping("/typing")
-public void handleTyping(PrivateMessage typingInfo, Principal principal) {
-    String typingMessage = principal.getName() + " is typing...";
-    messagingTemplate.convertAndSendToUser(
-        typingInfo.getReceiverUsername(),
-        "/queue/typing",
-        typingMessage
-    );
+  @MessageMapping("/typing")
+public void typing(@Payload String receiverUsername, Principal principal) {
+    if (principal != null) {
+        String sender = principal.getName();
+        messagingTemplate.convertAndSendToUser(receiverUsername, "/queue/typing", sender + " is typing...");
+    }
+
 }
 
 }

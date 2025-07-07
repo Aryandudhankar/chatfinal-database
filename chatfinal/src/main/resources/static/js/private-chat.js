@@ -24,6 +24,16 @@ document.addEventListener("DOMContentLoaded", function () {
           displayMessage(msg);
         }
       });
+          stompClient.subscribe(`/user/${currentUser}/queue/typing`, function (typingMsg) {
+          const typingBox = document.getElementById("typing-indicator");
+          typingBox.textContent = typingMsg.body;
+          typingBox.style.display = "block";
+
+           clearTimeout(typingBox._timeout);
+            typingBox._timeout = setTimeout(() => {
+             typingBox.style.display = "none";
+             }, 2000);
+      });
     });
   }
 
@@ -90,6 +100,11 @@ document.addEventListener("DOMContentLoaded", function () {
       sendMessage();
     }
   });
+  msgInput.addEventListener("input", () => {
+  if (stompClient && stompClient.connected && otherUser) {
+    stompClient.send("/app/typing", {}, otherUser);
+  }
+});
 
   // Initialize
   connectWebSocket();

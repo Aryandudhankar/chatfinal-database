@@ -2,6 +2,8 @@ package com.Aryan.chatfinal.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import jakarta.persistence.Lob;
+
 
 @Entity
 @Table(name = "private_messages")
@@ -17,8 +19,8 @@ public class PrivateMessage {
     @Column(columnDefinition = "TEXT")
     private String message;
 
-    private LocalDateTime timestamp = LocalDateTime.now();
-
+    private LocalDateTime timestamp = LocalDateTime.now(); 
+    
     // Getters and setters
     public Long getId() {
     return id;

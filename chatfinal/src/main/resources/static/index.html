@@ -4,125 +4,115 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Aryan's Chatroom</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="css/homepage.css" />
 </head>
 <body>
 
   <!-- Sidebar -->
   <div id="mySidebar" class="sidebar">
-    <button class="close-btn" onclick="toggleSidebar()">X</button>
+    <button class="close-btn" onclick="toggleSidebar()">✖</button>
     <a href="chat.html">💬 Open Chat</a>
-<li>
-    <form action="/logout" method="post" style="margin: 0;">
+
+    <form action="/logout" method="post" class="logout-form">
         <button class="sidebar-link logout-btn" type="submit">
             🔒 Logout
         </button>
     </form>
-</li>
-<!-- Dark Mode Toggle in Sidebar -->
-<div class="dark-mode-toggle">
-  <label class="switch">
-    <input type="checkbox" id="darkModeToggle" />
-    <span class="slider round"></span>
-  </label>
-  <span class="toggle-label">🌙 Dark Mode</span>
-</div>
+
+    <div class="dark-mode-toggle">
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle" />
+        <span class="slider round"></span>
+      </label>
+      <span class="toggle-label">🌙 Dark Mode</span>
+    </div>
 
     <a href="#">⚙️ Settings</a>
     <a href="#">❓ Help</a>
   </div>
-<div class="overlay" id="overlay"></div>
 
+  <div class="overlay" id="overlay"></div>
 
-<!-- Top Navigation Bar -->
-<div class="topbar">
-  <!-- Topbar Left-->
-  <div class="topbar-left">
-    <div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
-    <div class="logo">🌱 ChatApp</div>
-    <div class="explore">Explore</div>
-  </div>
-  <!-- Topbar Center-->
-<div class="topbar-center">
-  <div class="search-wrapper">
-    <input
-      type="text"
-      id="userSearchInput"
-      class="search-bar"
-      placeholder="Search for users..."
-      oninput="searchUsers()" />
-    <div id="searchResults" class="search-results"></div>
-  </div>
-</div>
+  <!-- Top Navigation Bar -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+      <div class="logo">🌱 ChatApp</div>
+      <div class="explore">Explore</div>
+    </div>
 
+    <div class="topbar-center">
+      <div class="search-wrapper">
+        <input
+          type="text"
+          id="userSearchInput"
+          class="search-bar"
+          placeholder="Search for users..."
+          oninput="searchUsers()" />
+        <div id="searchResults" class="search-results"></div>
+      </div>
+    </div>
 
-<div id="searchResults"></div> <!-- Display search results -->
-
-<!-- Topbar Right -->
-<div class="topbar-right">
-<div class="profile-dropdown">
-  <img src="/images/avatarlogo.png"
-       alt="Avatar"
-       class="avatar-img"
-       onclick="toggleDropdown()" />
-  <div class="dropdown-content" id="profileDropdown">
-    <a href="/profile">Profile</a>
-    <a href="#">Settings</a>
-    <a href="/logout">Logout</a>
-  </div>
-</div>
-
-</div>
-</div>
-
-</div>
+    <div class="topbar-right">
+      <div class="profile-dropdown">
+        <img src="/images/avatarlogo.png"
+            alt="Avatar"
+            class="avatar-img"
+            onclick="toggleDropdown()" />
+        <div class="dropdown-content" id="profileDropdown">
+          <a href="/profile">Profile</a>
+          <a href="#">Settings</a>
+          <a href="/logout">Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
 
   <!-- Main Content -->
-  <div class="main" id="mainContent">
-    <h1>Welcome to Aryan's Chatroom 👋</h1>
-    <p class="hero-text">Join real-time conversations in global chat or chat with a bot using <code>@bot</code>.</p>
-    <a href="chat.html">
-      <button class="start-chat-btn">Start Chatting</button>
-    </a>
+  <main class="main" id="mainContent">
+    <section class="hero">
+      <h1>Welcome to Aryan's Chatroom 👋</h1>
+      <p class="hero-text">
+        Join real-time conversations in global chat or chat with a bot using <code>@bot</code>.
+      </p>
+      <a href="chat.html" class="btn-primary">🚀 Start Chatting</a>
+    </section>
     
-    <div class="instructions">
-      <h2> Hello there 👋</h2>
-    <h3>📢 How to Start Chatting(one on one real-time chat)</h3>
-    <ul>
-      <li>Use the <strong>search bar</strong> at the top to search for a friend by their <strong>username</strong>.</li>
-      <li>Click their name in the dropdown to start a <strong>1:1 private chat</strong>.</li>
-      <li>For general chat, just click the button below to join the global chatroom.</li>
-    </ul>
+    <section class="instructions">
+      <h2>Hello there 👋</h2>
+      <h3>📢 How to Start Chatting (1-on-1 real-time chat)</h3>
+      <ul>
+        <li>Use the <strong>search bar</strong> to find a friend by <strong>username</strong>.</li>
+        <li>Click their name in the dropdown to start a <strong>private chat</strong>.</li>
+        <li>For global chat, just click the button below.</li>
+      </ul>
 
-    <h3>🤖 Bot Instructions (use in Global Chat)</h3>
-    <ul>
-      <li>Type <code>@bot joke</code> — Get a random joke 😄</li>
-      <li>Type <code>@bot quote</code> — Receive a motivational quote 💡</li>
-      <li>Type <code>@bot help</code> — See all bot commands 🛠️</li>
-      <a href="chat.html">
-      <button class="start-chat-btn">Global chat </button>
-    </a>
-    </ul>
-  </div>
+      <h3>🤖 Bot Instructions (use in Global Chat)</h3>
+      <ul>
+        <li><code>@bot joke</code> — Get a random joke 😄</li>
+        <li><code>@bot quote</code> — Receive a motivational quote 💡</li>
+        <li><code>@bot help</code> — See all bot commands 🛠️</li>
+      </ul>
+      <a href="chat.html" class="btn-secondary">🌐 Join Global Chat</a>
+    </section>
+  </main>
 
   <!-- Footer -->
-<footer class="footer">
-  <div class="footer-content">
-    <p>&copy; 2025 Aryan's Chatroom. All rights reserved.</p>
-        <p>Made with ❤️ by Aryan</p>
-    <div class="footer-links">
-      <a href="#">About</a>
-      <a href="#">Privacy</a>
-      <a href="#">Contact</a>
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Aryan's Chatroom. All rights reserved.</p>
+      <p>Made with ❤️ by Aryan</p>
+      <div class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Privacy</a>
+        <a href="#">Contact</a>
+      </div>
     </div>
-  </div>
-</footer>
-  </div>
+  </footer>
 
   <script src="js/sidebar.js"></script>
- <script src="js/logodrop.js"></script>
- <script src="js/search.js"></script>
+  <script src="js/logodrop.js"></script>
+  <script src="js/search.js"></script>
 </body>
 </html>
-

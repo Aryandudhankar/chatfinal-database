@@ -2,7 +2,7 @@ package com.Aryan.chatfinal.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import jakarta.persistence.Lob;
+
 
 
 @Entity

@@ -1,7 +1,11 @@
 package com.Aryan.chatfinal.controller;
 
 import com.Aryan.chatfinal.model.User;
+import com.Aryan.chatfinal.service.AuthService;
 import com.Aryan.chatfinal.service.UserService;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,10 +37,12 @@ public class RegistrationController {
     }
 
     // Display login form
+    
     @GetMapping("/login")
     public String loginPage(@RequestParam(value = "error", required = false) String error,
                             @RequestParam(value = "logout", required = false) String logout,
                             Model model) {
+                                
         if (error != null) {
             model.addAttribute("errorMsg", "Invalid username or password");
         }
@@ -45,6 +51,22 @@ public class RegistrationController {
         }
         return "login"; // login.html in templates
     }
+@Autowired private AuthService authService;
+@PostMapping("/login")
+
+public String loginSubmit(@RequestParam String username,
+                          @RequestParam String password,
+                          Model model,
+                          HttpSession session) {
+    User user = authService.authenticate(username, password);
+    if (user != null) {
+        session.setAttribute("loggedInUser", user); // store in session if needed
+        return "redirect:/index"; // or your chat homepage
+    } else {
+        model.addAttribute("errorMsg", "Invalid username or password");
+        return "login";
+    }
+}
 
   
 }

@@ -1,5 +1,6 @@
 package com.Aryan.chatfinal.config;
 
+import com.Aryan.chatfinal.service.CustomLoginFailureHandler;
 import com.Aryan.chatfinal.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +15,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
+    private final CustomLoginFailureHandler customLoginFailureHandler;
 
-    public SecurityConfig(CustomUserDetailsService userDetailsService) {
+    public SecurityConfig(CustomUserDetailsService userDetailsService,
+                          CustomLoginFailureHandler customLoginFailureHandler) {
         this.userDetailsService = userDetailsService;
+        this.customLoginFailureHandler = customLoginFailureHandler;
     }
 
     @Bean
@@ -24,12 +28,14 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register", "/signup", "/css/**", "/js/**","/ws/**", "/login").permitAll()
+                        .requestMatchers("/register", "/test-email", "/login", "/signup", "/css/**", "/js/**", "/ws/**")
+                        .permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/index.html", true)
+                        .failureHandler(customLoginFailureHandler) 
                         .permitAll()
                 )
                 .logout(logout -> logout

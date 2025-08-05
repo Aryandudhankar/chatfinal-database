@@ -28,7 +28,7 @@ public void logCacheManager() {
     System.out.println("CacheManager class: " + cacheManager.getClass().getName());
 }
 
-  @Cacheable(value = "users", key = "#username")
+  //@Cacheable(value = "users", key = "#username")
     public User authenticate(String username, String password) {
         User user = userService.findByUsername(username); // This will now go through proxy and use @Cacheable
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {

@@ -17,7 +17,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
 
     // Load user from DB using username for authentication
-@Cacheable(value = "users", key = "#username")
+//@Cacheable(value = "userCache", key = "#username", unless = "#result == null")
 @Override
 public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     User user = userRepository.findByUsername(username)

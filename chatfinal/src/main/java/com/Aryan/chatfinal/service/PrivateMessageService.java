@@ -3,6 +3,7 @@ package com.Aryan.chatfinal.service;
 import com.Aryan.chatfinal.model.PrivateMessage;
 import com.Aryan.chatfinal.repository.PrivateMessageRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 
@@ -19,9 +20,10 @@ public class PrivateMessageService {
         repository.save(message);
     }
  // Retrieve chat history between two users
-    public List<PrivateMessage> getChatBetween(String user1, String user2) {
-        return repository.findBySenderUsernameAndReceiverUsernameOrReceiverUsernameAndSenderUsername(
-                user1, user2, user1, user2
-        );
-    }
+    @Cacheable(value = "chatHistory", key = "T(java.util.Objects).hash(#user1, #user2)")
+public List<PrivateMessage> getChatBetween(String user1, String user2) {
+    return repository.findBySenderUsernameAndReceiverUsernameOrReceiverUsernameAndSenderUsername(
+            user1, user2, user1, user2
+    );
+}
 }

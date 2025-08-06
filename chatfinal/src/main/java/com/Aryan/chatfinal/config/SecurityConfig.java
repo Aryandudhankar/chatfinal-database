@@ -1,6 +1,7 @@
 package com.Aryan.chatfinal.config;
 
 import com.Aryan.chatfinal.service.CustomLoginFailureHandler;
+import com.Aryan.chatfinal.service.CustomOAuth2SuccessHandler;
 import com.Aryan.chatfinal.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,11 +25,11 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http,CustomOAuth2SuccessHandler oAuth2SuccessHandler) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register", "/test-email", "/login", "/signup", "/css/**", "/js/**", "/ws/**")
+                        .requestMatchers("/register", "/login", "/signup", "/css/**", "/js/**", "/ws/**")
                         .permitAll()
                         .anyRequest().authenticated()
                 )
@@ -37,6 +38,12 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/index.html", true)
                         .failureHandler(customLoginFailureHandler) 
                         .permitAll()
+                )
+                .oauth2Login(oauth -> oauth
+                    .loginPage("/login") // same login page
+                    .defaultSuccessUrl("/index.html", true)
+                        .failureHandler(customLoginFailureHandler) // use the same failure handler
+                        .successHandler(oAuth2SuccessHandler)
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")

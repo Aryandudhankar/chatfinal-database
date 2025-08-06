@@ -8,6 +8,8 @@
 <body>
     <div class="login-container">
         <h2>Login</h2>
+
+        <!-- Normal Login Form -->
         <form action="/login" method="post">
             <div class="form-group">
                 <label for="username">Username</label>
@@ -22,19 +24,24 @@
 
         <!-- Display login error -->
         <div th:if="${param.error}" class="error-message">
-                Invalid username or password.
-            </div>
+            Invalid username or password.
+        </div>
 
-            <!-- Optional logout success message -->
-            <div th:if="${param.logout}" class="logout-message">
-                You have been logged out successfully.
-            </div>
+        <!-- Optional logout success message -->
+        <div th:if="${param.logout}" class="logout-message">
+            You have been logged out successfully.
+        </div>
 
+        <!-- Registration link -->
+        <p>Don't have an account? <a th:href="@{/register}">Register now</a></p>
 
-        <!-- ✅ Registration link -->
-       <p>Don't have an account? <a th:href="@{/register}">Register now</a></p>
-    
+        <hr>
 
+        <!-- Google OAuth2 Login -->
+        <a href="/oauth2/authorization/google" class="google-btn">
+            <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" 
+                 alt="Sign in with Google">
+        </a>
     </div>
 </body>
 </html>

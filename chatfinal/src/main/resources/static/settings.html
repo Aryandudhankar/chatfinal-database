@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="/css/helpandsettings.css">
+</head>
+<body class="app-body">
+    <div class="container">
+        <h1 class="page-title">Settings</h1>
+
+        <section class="card">
+            <h2>Profile</h2>
+            <label>Name:</label>
+            <input type="text" placeholder="Your name">
+            <label>Profile Picture:</label>
+            <input type="file">
+            <button class="btn">Save Profile</button>
+        </section>
+
+        <section class="card">
+            <h2>Account</h2>
+            <button class="btn" onclick="window.location.href='/reset-password.html'">Change Password</button>
+            <button class="btn btn-danger">Delete Account</button>
+        </section>
+
+        <section class="card">
+            <h2>Preferences</h2>
+            <label><input type="checkbox"> Enable Notifications</label>
+            <label><input type="checkbox"> Dark Mode</label>
+        </section>
+    </div>
+</body>
+</html>

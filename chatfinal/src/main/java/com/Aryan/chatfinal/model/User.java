@@ -19,6 +19,9 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(name = "reset_token")
+    private String resetToken; // Added for password reset
+
     // Getters and Setters
 
     public Long getId() {
@@ -51,5 +54,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
     }
 }
